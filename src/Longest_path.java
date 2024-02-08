@@ -54,58 +54,35 @@ public class Longest_path {
         else{
             Point pervious_point = tracks.get(tracks.size()-1);
             System.out.println(pervious_point);
-            int x1, y1;
-            if ((!walls.contains(new Point ((int)pervious_point.getX()-1, (int)pervious_point.getY()))) && 
-            (!tracks.contains(new Point ((int)pervious_point.getX()-1, (int)pervious_point.getY()))) &&
-            ((int)pervious_point.getX()-1 >= 0)){
+            int x1 = (int)pervious_point.getX();
+            int y1 = (int)pervious_point.getY();
+    
+            // Check each direction
+            for (int[] dir : new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}) {
+                int newX = x1 + dir[0];
+                int newY = y1 + dir[1];
                 
-                x1 = (int)pervious_point.getX()-1;
-                y1 = (int)pervious_point.getY();
-                tracks.add(new Point(x1, y1));
-                ui.place(x1, y1, ui.SNAKE);
-                ui.showChanges();
-                tracking_path();
+                if (isValidMove(newX, newY)) {
+                    tracks.add(new Point(newX, newY));
+                    ui.place(newX, newY, ui.SNAKE);
+                    ui.showChanges();
+                    tracking_path();
+                    return;
+                }
             }
-            else if ((!walls.contains(new Point ((int)pervious_point.getX(), (int)pervious_point.getY()+1))) && 
-            (!tracks.contains(new Point ((int)pervious_point.getX(), (int)pervious_point.getY()+1))) &&
-            ((int)pervious_point.getY()+1 <= max_y)){
-                x1 = (int)pervious_point.getX();
-                y1 = (int)pervious_point.getY()+1;
-                tracks.add(new Point(x1, y1));
-                ui.place(x1, y1, ui.SNAKE);
-                ui.showChanges();
-                tracking_path();
-            }
-            else if ((!walls.contains(new Point ((int)pervious_point.getX()+1, (int)pervious_point.getY()))) && 
-            (!tracks.contains(new Point ((int)pervious_point.getX()+1, (int)pervious_point.getY()))) &&
-            ((int)pervious_point.getX()+1 <= max_x)){
-                x1 = (int)pervious_point.getX()+1;
-                y1 = (int)pervious_point.getY();
-                tracks.add(new Point(x1, y1));
-                ui.place(x1, y1, ui.SNAKE);
-                ui.showChanges();
-                tracking_path();
-            }
-            else if ((!walls.contains(new Point ((int)pervious_point.getX(), (int)pervious_point.getY()-1))) && 
-            (!tracks.contains(new Point ((int)pervious_point.getX(), (int)pervious_point.getY()-1))) &&
-            ((int)pervious_point.getY()-1 >= 0)){
-                x1 = (int)pervious_point.getX();
-                y1 = (int)pervious_point.getY()-1;
-                tracks.add(new Point(x1, y1));
-                ui.place(x1, y1, ui.SNAKE);
-                ui.showChanges();
-                tracking_path();
-            }
-            else{
-                x1 = (int)pervious_point.getX();
-                y1 = (int)pervious_point.getY();
-                ui.place(x1, y1, ui.EMPTY);
-                walls.add(pervious_point);
-                tracks.remove(pervious_point);
-                tracking_path();
-            }
+    
+            // If no valid moves, remove current point
+            ui.place(x1, y1, ui.EMPTY);
+            walls.add(pervious_point);
+            tracks.remove(pervious_point);
+            tracking_path();
         }
     }
+    
+    boolean isValidMove(int x, int y) {
+        return x >= 0 && y >= 0 && x <= max_x && y <= max_y && !walls.contains(new Point(x, y)) && !tracks.contains(new Point(x, y));
+    }
+    
 
 
 
