@@ -1,14 +1,10 @@
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 import java.io.File;  // Import the File class
-import java.io.FileNotFoundException;  // Import this class to handle errors
-import java.util.Scanner; // Import the Scanner class to read text files
+import java.io.FileNotFoundException;  // Import this class to handle errors // Import the Scanner class to read text files
 import java.util.ArrayList;
-import java.util.Collections;
 import java.awt.Point;
 
-import ui.Event;
 import ui.SnakeUserInterface;
 import ui.UserInterfaceFactory;
 
