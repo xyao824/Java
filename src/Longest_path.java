@@ -36,7 +36,7 @@ public class Longest_path {
     }
     
  
-    void drawmap(){
+    void draw_map(){
         ui.place((int)startPoint.getX(), (int)startPoint.getY(), ui.SNAKE);
         ui.place((int)endPoint.getX(), (int)endPoint.getY(), ui.FOOD);
         tracks.add(startPoint);
@@ -154,6 +154,6 @@ public class Longest_path {
             e.printStackTrace();
           }
 
-        new Longest_path(walls, start, end, x, y).drawmap();
+        new Longest_path(walls, start, end, x, y).draw_map();
     }
 }
